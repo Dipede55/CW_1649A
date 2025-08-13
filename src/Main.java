@@ -18,11 +18,18 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Event_controller function = new Event_controller(); //set up slots at the beginning
-        do {
+        while (true) {
             menu();//line5: need to throw this here - in this void to run
-            //run all methods here
             System.out.println("Enter your choice: ");
+
+            if(!sc.hasNextInt()) {
+                System.out.println("Please enter a valid number.");
+                sc.nextLine();
+                continue;
+            }
+
             int choice = sc.nextInt();
+            sc.nextLine();
             switch (choice) {
                 case 1:
                     System.out.println("Here is the list of all events");
@@ -52,13 +59,14 @@ public class Main {
                     System.out.println("Clear all events");
                     function.clearAllEvents();
                 case 8:
-                    System.out.println("Please answer Yes or No");
-                    break;
-                case 9: //it should be "black to the main menu"
-                    break;
+                    System.out.println("Existing Campus Event Calendar...");
+                    sc.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please choose between 1 and 8.");
             }
 
-        }  while (true);
+        }
 
     }
 }

@@ -38,7 +38,4 @@ public class Event {
         //not fixed yet
     }
 
-    public void Main() {
-
-    }
 }
