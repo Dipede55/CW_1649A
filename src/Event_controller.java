@@ -194,21 +194,77 @@ public class Event_controller implements Function {
         }
 
         public void searchEvent() {
-            System.out.println("Keyword: ");
-            String keyword = EmptyInputValidation("Enter keyword: ");
-            boolean found = false;
-            for(int i = 0; i<size; i++) {
-                if(events[i].getTitle().toLowerCase().contains(keyword) || events[i].getType().toLowerCase().contains(keyword)) {
+            if (size == 0) {
+                System.out.println("There are no events to search, please add more events");
+                return;
+            }
 
-                    System.out.println((i+1) + ". "+events[i]); //output: 3. title...
-                    found = true;
-                }
+            System.out.println("Search by: \n1. Title\n2. Type\n3. Date");
+            int numsearch = indexValidation(3);
+            switch (numsearch) {
+                case 1:
+                    sortTitle();
+                    String keyword = EmptyInputValidation("Enter title keyword: ");
+                    int index = BinarySearchTitle(keyword);
+                    if (index != 1) {
+                        System.out.println("Event found: " + events[index]);
+                    }
+                    else {
+                        System.out.println("Event not found!");
+                    }
+                    break;
+                case 2:
+                    sortType();
+                    String typeword = EmptyInputValidation("Enter type: ");
+                    boolean foundtype = false;
+                    for (int i = 0; i < size; i++) {
+                        if (events[i].getType().equalsIgnoreCase(typeword)) {
+                            foundtype = true;
+                            System.out.println("Event found: " + events[i]);
+                        }
+                    }
+
+                    if (!foundtype) {
+                        System.out.println("Event not found!");
+                    }
+                    break;
+                case 3:
+                    sortDate();
+                    LocalDate dateword = DateValidation("Enter date: ");
+                    boolean founddate = false;
+                    for (int i = 0; i < size; i++) {
+                        if (events[i].getDate().equals(dateword)) {
+                            founddate = true;
+                            System.out.println("Event found: " + events[i]);
+                        }
+                    }
+                    if (!founddate) {
+                        System.out.println("Event not found!");
+                    }
+                    break;
             }
-            if(!found) {
-                System.out.println("No event with " + keyword + " found.");
-            }
+
         }
-        //fix here to edit
+
+        private int BinarySearchTitle(String keyword) {
+            int left = 0;
+            int right = size-1;
+
+            while(left <= right) {
+                int mid = (left + right) / 2;
+                int compare =  events[mid].getTitle().compareToIgnoreCase(keyword);
+                if(compare == 0) {
+                    return mid;
+                }
+                else if(compare > 0) {
+                    right = mid - 1;
+                }
+                else {
+                    left = mid + 1;
+                }
+            } return -1;
+        }
+
         public void editEvent() {
             if (size == 0) {
                 System.out.println("There are no events to edit, please add more events");
@@ -260,7 +316,6 @@ public class Event_controller implements Function {
             System.out.println("Delete cancelled.");
         }
     }
-
 
     public void clearAllEvents() {
             System.out.println("Are you sure you want to clear all events? (Yes/No)");
