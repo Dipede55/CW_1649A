@@ -6,7 +6,7 @@ public class Main {
     public static void menu() {
         System.out.println("Campus Event Calendar" +
                 "\n1. All events" +
-                "\n2. Sort all events by date" +
+                "\n2. Sort events" +
                 "\n3. Search events" +
                 "\n4. Add event" +
                 "\n5. Edit event" +
@@ -58,6 +58,7 @@ public class Main {
                 case 7:
                     System.out.println("Clear all events");
                     function.clearAllEvents();
+                    break;
                 case 8:
                     System.out.println("Existing Campus Event Calendar...");
                     sc.close();
