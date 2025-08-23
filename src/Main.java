@@ -71,5 +71,3 @@ public class Main {
 
     }
 }
-
-//remember: add exception, do not stop the program when teacher write wrong form.

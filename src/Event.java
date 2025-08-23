@@ -1,11 +1,9 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Event {
     private String title;
     private String type;
     private LocalDate date;
-    //you can add the description, detail, quantity people!, ...
 
     //create setter and getter
     public String getTitle() {
@@ -34,8 +32,6 @@ public class Event {
     }
     @Override
     public String toString() {
-        return title + " - type: " + type + " - date: " + date + '.'; //this will return num.
-        //not fixed yet
+        return title + " - type: " + type + " - date: " + date + '.';
     }
-
 }

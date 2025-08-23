@@ -6,6 +6,4 @@ public interface Function {
     void sortEvents();
     void displayAllEvents();
     void clearAllEvents();
-
-
 }

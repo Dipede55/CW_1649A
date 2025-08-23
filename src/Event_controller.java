@@ -76,11 +76,8 @@ public class Event_controller implements Function {
 
     @Override
     public void addEvent() {
-//        System.out.println("Title: ");
         title = EmptyInputValidation("Title: "); //take the user input
-//        System.out.println("Type: ");
         type = EmptyInputValidation("Type: ");
-//        System.out.println("Date (yyyy-mm-dd): ");
         date = DateValidation("Date: ");
 
         for (int i = 0; i < size; i++) {
@@ -89,7 +86,6 @@ public class Event_controller implements Function {
                 return; //this make the system just print one time and return the menu
             }
         }
-        //do I need to add checking format func for date :??? I will add it later
 
         if (size == events.length) resize(); //line has resize()
         events[size++] = new Event(title, type, date);
@@ -215,10 +211,10 @@ public class Event_controller implements Function {
                     break;
                 case 2:
                     sortType();
-                    String typeword = EmptyInputValidation("Enter type: ");
+                    String typein = EmptyInputValidation("Enter type: ");
                     boolean foundtype = false;
                     for (int i = 0; i < size; i++) {
-                        if (events[i].getType().equalsIgnoreCase(typeword)) {
+                        if (events[i].getType().equalsIgnoreCase(typein)) {
                             foundtype = true;
                             System.out.println("Event found: " + events[i]);
                         }
@@ -230,10 +226,10 @@ public class Event_controller implements Function {
                     break;
                 case 3:
                     sortDate();
-                    LocalDate dateword = DateValidation("Enter date: ");
+                    LocalDate datein = DateValidation("Enter date: ");
                     boolean founddate = false;
                     for (int i = 0; i < size; i++) {
-                        if (events[i].getDate().equals(dateword)) {
+                        if (events[i].getDate().equals(datein)) {
                             founddate = true;
                             System.out.println("Event found: " + events[i]);
                         }
@@ -305,7 +301,7 @@ public class Event_controller implements Function {
         displayAllEvents();
         int innum = indexValidation(size);
 
-        Boolean answer = YesNoValidation("Are you sure you want to delete this event? (Yes/No)");
+        Boolean answer = YesNoValidation("Are you sure you want to delete this event (Yes/No)? ");
         if (answer) {
             for (int i = innum - 1; i < size - 1; i++) {
                 events[i] = events[i + 1];
@@ -318,13 +314,13 @@ public class Event_controller implements Function {
     }
 
     public void clearAllEvents() {
-            System.out.println("Are you sure you want to clear all events? (Yes/No)");
-            String answer = sc.nextLine().toLowerCase();
-            if(answer.equalsIgnoreCase("yes")) {
+            Boolean answer = YesNoValidation("Are you sure you want to clear all events (Yes/No)?  ");
+            if(answer) {
                 for(int i = 0; i<size; i++) {
                     events[i] = null;
                 }
                 size = 0;
+                System.out.println("All events are cleared successfully.");
             }
         }
 }
